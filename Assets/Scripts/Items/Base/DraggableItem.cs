@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Items.Base
 {
-    public abstract class DraggableItem : HoldableItem
+    public abstract class DraggableItem : SelectableItem
     {
         private bool _isDragging;
 
@@ -26,11 +26,8 @@ namespace Items.Base
             base.OnSelect();
             _selectedPosition = transform.position;
             _mousePosition = Input.mousePosition - _mainCamera.WorldToScreenPoint(_selectedPosition);
-        }
 
-        protected override void OnUpdate()
-        {
-            base.OnUpdate();
+            rigidbody.isKinematic = true;
         }
 
         private void OnMouseDrag()
@@ -65,6 +62,8 @@ namespace Items.Base
             
             if (_isDragging)
                 OnEndDrag();
+            
+            rigidbody.isKinematic = false;
         }
 
         protected virtual void OnEndDrag()

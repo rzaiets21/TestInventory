@@ -4,7 +4,7 @@ namespace Items.Base
 {
     public abstract class ItemBase : MonoBehaviour
     {
-        [SerializeField] private Collider collider;
-        [SerializeField] private Rigidbody rigidbody;
+        [SerializeField] protected Collider collider;
+        [SerializeField] protected Rigidbody rigidbody;
     }
 }
