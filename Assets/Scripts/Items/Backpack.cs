@@ -11,8 +11,8 @@ namespace Items
     {
         private Inventory<ItemData> _inventory = new ();
 
-        public BackpackEvent onItemAdded;
-        public BackpackEvent onItemRemoved;
+        public BackpackEvent onItemAdded = new BackpackEvent();
+        public BackpackEvent onItemRemoved = new BackpackEvent();
         
         public void AddToBackpack(CollectibleItem item)
         {

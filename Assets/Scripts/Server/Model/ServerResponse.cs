@@ -8,13 +8,13 @@ namespace Server
     {
         [JsonProperty("response")] public string Response { get; private set; }
         [JsonProperty("status")] public string Status { get; private set; }
-        [JsonProperty("data_submitted")] public string Data { get; private set; }
+        [JsonProperty("data_submitted")] public object Data { get; private set; }
         [JsonIgnore] public ResponseType ResponseType { get; private set; }
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            ResponseType = (ResponseType)Enum.Parse(typeof(ResponseType), Response);
+            ResponseType = (ResponseType)Enum.Parse(typeof(ResponseType), Response, true);
         }
     }
 }
