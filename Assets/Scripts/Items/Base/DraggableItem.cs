@@ -45,8 +45,12 @@ namespace Items.Base
                 return;
             }
 
-            transform.position = _mainCamera.ScreenToWorldPoint(Input.mousePosition - _mousePosition);
+            if (!Physics.Raycast(_mainCamera.ScreenPointToRay(Input.mousePosition), out var hit, 200.0f, 1 << 6))
+                return;
+            var position = new Vector3(hit.point.x, 0.3f, hit.point.z) ;
+            transform.position = position;
             OnDrag();
+            // = _mainCamera.ScreenToWorldPoint(Input.mousePosition - _mousePosition);
         }
 
         protected virtual void OnBeginDrag()
