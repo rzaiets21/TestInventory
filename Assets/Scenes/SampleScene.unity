@@ -329,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 865275016}
   rigidbody: {fileID: 865275015}
+  <ItemId>k__BackingField: binocular
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,7 +580,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d6d63cb3634079b10789180c0edfa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemsDatabase: {fileID: 0}
   backpack: {fileID: 1809181615}
+  collectibleItems: []
 --- !u!1 &1383340271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2654246925872783894, guid: 4e01071d8c46e493b9a34e6f0e2207ec, type: 3}
@@ -609,6 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 1383340273}
   rigidbody: {fileID: 1383340272}
+  <ItemId>k__BackingField: trompeta
 --- !u!1001 &1809181611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -919,8 +923,41 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6606539734609980320, guid: 73e234f72dda24e5b9d9b8901ed7fb43, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8431624497461720721}
   m_SourcePrefab: {fileID: 100100000, guid: 73e234f72dda24e5b9d9b8901ed7fb43, type: 3}
+--- !u!1 &8431624497461720718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6606539734609980320, guid: 73e234f72dda24e5b9d9b8901ed7fb43, type: 3}
+  m_PrefabInstance: {fileID: 8431624497461720717}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &8431624497461720719 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 5492060571655966312, guid: 73e234f72dda24e5b9d9b8901ed7fb43, type: 3}
+  m_PrefabInstance: {fileID: 8431624497461720717}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8431624497461720720 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 1429338757903182606, guid: 73e234f72dda24e5b9d9b8901ed7fb43, type: 3}
+  m_PrefabInstance: {fileID: 8431624497461720717}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8431624497461720721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431624497461720718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461675e574b047c4979a107f94ea0d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 8431624497461720720}
+  rigidbody: {fileID: 8431624497461720719}
+  <ItemId>k__BackingField: ladder
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

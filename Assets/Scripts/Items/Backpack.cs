@@ -17,11 +17,13 @@ namespace Items
         public void AddToBackpack(CollectibleItem item)
         {
             var itemData = item.ItemData;
+            _inventory.Add(itemData);
             onItemAdded?.Invoke(itemData);
         }
-
+        
         public void RemoveFromBackpack(ItemData itemData)
         {
+            _inventory.Remove(itemData);
             onItemRemoved?.Invoke(itemData);
         }
     }

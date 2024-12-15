@@ -6,16 +6,24 @@ namespace Items.Base
     {
         protected bool _isSelected;
 
+        public bool IsInteractable { get; protected set; } = true;
+        
         public event Action<ItemBase> onSelect;
         public event Action<ItemBase> onRelease;
 
         private void OnMouseDown()
         {
+            if(!IsInteractable)
+                return;
+            
             Select();
         }
 
         private void OnMouseUp()
         {
+            if(!IsInteractable)
+                return;
+            
             Release();
         }
 

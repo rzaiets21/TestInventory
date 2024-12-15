@@ -32,6 +32,9 @@ namespace Items.Base
 
         private void OnMouseDrag()
         {
+            if(!IsInteractable)
+                return;
+            
             if (!_isSelected)
                 return;
             
