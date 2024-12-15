@@ -32,8 +32,6 @@ namespace Items
             }
             
             transform.SetParent(backpackTransform);
-            transform.localPosition = ItemInfo.PositionOnBackpack;
-            transform.localRotation = Quaternion.Euler(ItemInfo.RotationOnBackpack);
 
             rigidbody.isKinematic = true;
             

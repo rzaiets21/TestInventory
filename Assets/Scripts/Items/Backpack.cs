@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core;
+using DG.Tweening;
 using Items.Base;
 using Items.Model;
 using UnityEngine.Events;
@@ -11,6 +12,9 @@ namespace Items
     
     public class Backpack : HoldableItem
     {
+        private const float AttachingDuration = 0.85f;
+        private const Ease AttachingEase = Ease.InOutSine;
+        
         private Inventory<ItemData> _inventory;
         private List<CollectibleItem> _attachedItems = new();
 
@@ -33,8 +37,16 @@ namespace Items
 
         private void TryAttachItem(CollectibleItem item)
         {
-            if(item.TryAttachToBackpack(transform))
-                _attachedItems.Add(item);
+            if (!item.TryAttachToBackpack(transform))
+                return;
+            
+            var itemInfo = item.ItemInfo;
+            var itemTransform = item.transform;
+            itemTransform.DOLocalMove(itemInfo.PositionOnBackpack, AttachingDuration).SetEase(AttachingEase)
+                .SetLink(item.gameObject, LinkBehaviour.CompleteAndKillOnDisable);
+            itemTransform.DOLocalRotate(itemInfo.RotationOnBackpack, AttachingDuration).SetEase(AttachingEase)
+                .SetLink(item.gameObject, LinkBehaviour.CompleteAndKillOnDisable);
+            _attachedItems.Add(item);
         }
 
         public bool TryRemoveFromBackpack(string itemId, out CollectibleItem item)
@@ -45,6 +57,7 @@ namespace Items
             {
                 _attachedItems.Remove(item);
                 item.DetachFromBackpack();
+                DOTween.Kill(item.gameObject);
             }
             
             var itemData = _inventory.GetItems().FirstOrDefault(x => x.Id == itemId);
