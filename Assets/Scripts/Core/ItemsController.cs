@@ -1,8 +1,10 @@
 using System;
 using Items;
+using Items.Base;
 using Items.Model;
 using Newtonsoft.Json;
 using Server;
+using UI;
 using UnityEngine;
 
 namespace Core
@@ -10,6 +12,7 @@ namespace Core
     public sealed class ItemsController : MonoBehaviour
     {
         [SerializeField] private ItemsDatabase itemsDatabase;
+        [SerializeField] private InventoryPanel inventoryPanel;
         
         [SerializeField] private Backpack backpack;
         [SerializeField] private CollectibleItem[] collectibleItems;
@@ -19,6 +22,10 @@ namespace Core
         private void Awake()
         {
             _serverController = new ServerController();
+
+            var inventory = new Inventory<ItemData>();
+            backpack.SetInventory(inventory);
+            inventoryPanel.SetInventory(inventory);
         }
 
         private void Start()
@@ -41,18 +48,54 @@ namespace Core
         {
             backpack.onItemAdded.AddListener(OnItemAdded);
             backpack.onItemRemoved.AddListener(OnItemRemoved);
+
+            backpack.onHoldBegin += OnBackpackHolding;
+            backpack.onHoldEnd += OnBackpackHoldingEnd;
+
+            inventoryPanel.onPointerUpItemSlot += OnInventorySlotPointerUp;
         }
 
         private void OnDisable()
         {
             backpack.onItemAdded.RemoveListener(OnItemAdded);
             backpack.onItemRemoved.RemoveListener(OnItemRemoved);
+            
+            backpack.onHoldBegin -= OnBackpackHolding;
+            backpack.onHoldEnd -= OnBackpackHoldingEnd;
+            
+            inventoryPanel.onPointerUpItemSlot -= OnInventorySlotPointerUp;
         }
 
+        private void ShowUIPanel(bool state)
+        {
+            inventoryPanel.Show(state);
+        }
+        
         private async void SendRequestToServer(string data)
         {
             var request = await _serverController.SendRequest<ServerResponse>(data);
             Debug.Log($"{request.Data}:{request.ResponseType}");
+        }
+
+        private void OnInventorySlotPointerUp(string id)
+        {
+            if(!backpack.TryRemoveFromBackpack(id, out var item))
+                return;
+            
+            if(item != null)
+                return;
+            
+            //Spawn new object in case when item is not attached to the backpack
+        }
+
+        private void OnBackpackHolding(ItemBase item)
+        {
+            ShowUIPanel(true);
+        }
+        
+        private void OnBackpackHoldingEnd(ItemBase item)
+        {
+            ShowUIPanel(false);
         }
         
         private void OnItemAdded(ItemData itemData)

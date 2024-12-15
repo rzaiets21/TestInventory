@@ -1,4 +1,6 @@
 using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Items.Base
 {
@@ -29,6 +31,9 @@ namespace Items.Base
 
         protected void Select()
         {
+            if(EventSystem.current.IsPointerOverGameObject())
+                return;
+            
             if(_isSelected)
                 return;
 
